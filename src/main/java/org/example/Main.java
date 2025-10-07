@@ -7,17 +7,14 @@ import java.io.*;
 public class Main {
 
     public static void main(String[] args) {
-        if(args.length < 1){
-            System.out.println("Please parse source file.");
-            return;
-        }
 
-        String path = args[0];
+        String path = "C:\\Users\\Savindu\\Desktop\\Compiler\\TestProject\\main.txt";//Replace args[0] for your source file location
         Compiler compiler = Compiler.getInstance();
 
         //Write result
         File file = new File(path);
-        File outFile = new File(file.getPath(),file.getName()+".html");
+        File outFile = new File(file.getParent(),file.getName()+".html");
+
         try {
             BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(outFile));
             outputStream.write(compiler.compile(path).getBytes());
@@ -25,6 +22,7 @@ public class Main {
 
             System.out.println("Your file compiled successfully.");
         } catch (IOException e) {
+            System.out.println("Error - "+e.getMessage());
             System.out.println("Failed to compile.");
         }
 
